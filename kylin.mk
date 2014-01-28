@@ -1,13 +1,13 @@
 # Inherit device configuration for Atrix 2.
 $(call inherit-product, device/motorola/edison/full_edison.mk)
 
-# Inherit some common CM stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+# Inherit some common KM stuff.
+$(call inherit-product, vendor/kylin/config/common_full_phone.mk)
 
 #
 # Setup device specific product configuration.
 #
-PRODUCT_NAME := cm_edison
+PRODUCT_NAME := km_edison
 PRODUCT_BRAND := ATT
 PRODUCT_DEVICE := edison
 PRODUCT_MODEL := MB865
@@ -25,6 +25,4 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
    BUILD_FINGERPRINT=${PRODUCT_BRAND}/${PRODUCT_DEVICE}_${PRODUCT_SFX}/${PRODUCT_DEVICE_PREFIX}_${PRODUCT_DEVICE}:${PLATFORM_VERSION}/${BUILD_ID}/${DATE}:user/release-keys \
    PRIVATE_BUILD_DESC="${PRODUCT_DEVICE_PREFIX}_${PRODUCT_DEVICE}-user ${PLATFORM_VERSION} ${BUILD_ID} ${DATE} release-keys" \
    PRODUCT_BRAND=${PRODUCT_BRAND} \
-   BUILD_UTC_DATE= \
-   PRODUCT_DEFAULT_LANGUAGE=en \
-   PRODUCT_DEFAULT_REGION=US \
+   BUILD_UTC_DATE=
