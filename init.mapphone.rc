@@ -1,6 +1,6 @@
 on init
 
-loglevel 3
+loglevel 8
 
     # Create mountpoint so Dalvik can mark as slave in zygotes.
     mount tmpfs tmpfs /storage mode=0050,uid=0,gid=1028
@@ -137,6 +137,8 @@ on post-fs
     restorecon /sys/class/rfkill/rfkill0/type
     chown bluetooth net_bt_stack /dev/ttyO1
     chmod 0660 /dev/ttyO1
+    # change permissions for rfkill
+    chmod 0666 /dev/rfkill
     # following dir is for storing BP Flex and PDS files. NVM Daemon is using this
     mkdir /pds/bp_nvm 0770 radio radio
     chown system radio /cache/ste
@@ -705,7 +707,9 @@ service dhcpcd_usbeth0 /system/bin/dhcpcd -ABKL
     class main
     disabled
     oneshot
-service hostapd_bin /system/bin/hostapd -d /data/misc/wifi/hostapd.conf
+service hostapd_bin /system/bin/hostapd -d \
+      -e /data/misc/wifi/entropy.bin \
+      /data/misc/wifi/hostapd.conf
     socket wpa_wlan0 dgram 660 wifi wifi
     class main
     disabled
