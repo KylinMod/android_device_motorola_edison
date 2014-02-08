@@ -1,14 +1,9 @@
 on init
 
-loglevel 8
-
-    # Create mountpoint so Dalvik can mark as slave in zygotes.
-    mount tmpfs tmpfs /storage mode=0050,uid=0,gid=1028
+loglevel 3
 
     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
-
     mkdir /storage/sdcard0 0700 root root
-
     export EXTERNAL_STORAGE /storage/sdcard0
 
     # for backwards compatibility
@@ -78,7 +73,7 @@ on post-fs
     # Disable automatic power control for OHCI USB IPC Temporarily
     #    write /sys/devices/platform/ohci-omap3/usb1/1-1/power/control auto
 
-    # kill green LED at boot
+# kill green LED at boot
     write /sys/class/leds/green/brightness 0
 
 # NFC configuration
@@ -147,6 +142,8 @@ on post-fs
     chmod 0750 /cache/ste/modem
     chmod 0660 /dev/ttyO2
     chown radio radio /dev/ttyO2
+    # change permissions for rfkill
+    chmod 0666 /dev/rfkill
     # create the lost+found directories, so as to enforce our permissions
     mkdir /pds/lost+found 0770 root root
 # create the necessary pds dirs for tpapi with proper permission
